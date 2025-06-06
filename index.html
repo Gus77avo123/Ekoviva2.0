@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>eKoviva - Por um Futuro Sustentável</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+    
+    <style>
+        /* ------------------- GERAL E VARIÁVEIS ------------------- */
+        :root {
+            --cor-primaria: #28a745;
+            --cor-primaria-hover: #218838;
+            --cor-secundaria: #f3f9f3;
+            --cor-texto-principal: #333;
+            --cor-texto-secundario: #666;
+            --cor-branco: #ffffff;
+            --sombra-suave: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        html { scroll-behavior: smooth; }
+        body { background-color: var(--cor-branco); color: var(--cor-texto-principal); }
+        .interface { max-width: 1280px; margin: 0 auto; padding: 0 2%; }
+
+        /* ------------------- CABEÇALHO ------------------- */
+        header { box-shadow: 0 2px 10px rgba(0,0,0,0.05); background-color: var(--cor-branco); position: sticky; top: 0; z-index: 1000; }
+        .header-content { display: flex; align-items: center; justify-content: space-between; padding: 15px 0; }
+        .logotipo img { max-width: 140px; }
+        nav ul { list-style-type: none; display: flex; gap: 30px; align-items: center; }
+        nav ul li a { text-decoration: none; color: var(--cor-texto-secundario); font-weight: 600; transition: color 0.3s; padding: 5px 0; }
+        nav ul li a:hover { color: var(--cor-primaria); }
+        .header-actions { display: flex; align-items: center; }
+        .header-cart a { color: var(--cor-texto-principal); text-decoration: none; font-size: 1.8em; position: relative; display: inline-block; transition: color 0.3s ease; }
+        .header-cart a:hover { color: var(--cor-primaria); }
+        .cart-badge { position: absolute; top: -8px; right: -12px; background-color: #E91E63; color: white; border-radius: 50%; padding: 3px 7px; font-size: 0.6em; font-weight: bold; border: 2px solid white; }
+        .droop-hover { position: relative; }
+        .droop-hover .drop { display: none; position: absolute; top: 100%; left: 0; background-color: var(--cor-branco); box-shadow: var(--sombra-suave); border-radius: 8px; padding: 10px; width: 200px; z-index: 100; margin-top: 10px; }
+        .droop-hover:hover .drop { display: block; }
+        .drop a { display: block; padding: 10px; border-radius: 5px; }
+        .drop a:hover { background-color: var(--cor-secundaria); }
+        .btn-login { background-color: var(--cor-primaria); color: white !important; padding: 8px 20px; border-radius: 20px; transition: background-color 0.3s; }
+        .btn-login:hover { background-color: var(--cor-primaria-hover); color: white !important; }
+
+        /* ------------------- SEÇÃO HERO ------------------- */
+        .hero { background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1492496913980-501348b61469?q=80&w=2574&auto=format&fit=crop'); background-size: cover; background-position: center; padding: 120px 0; text-align: center; color: var(--cor-branco); }
+        .hero h1 { font-size: 3.5em; font-weight: 700; text-shadow: 2px 2px 5px rgba(0,0,0,0.5); }
+        .hero p { font-size: 1.2em; margin: 15px 0 30px 0; font-weight: 300; }
+        .btn-primary { background-color: var(--cor-primaria); color: var(--cor-branco); text-decoration: none; padding: 15px 35px; border-radius: 30px; font-weight: 600; transition: all 0.3s ease; }
+        .btn-primary:hover { background-color: var(--cor-primaria-hover); transform: translateY(-3px); box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+
+        /* ------------------- SEÇÃO COMPROMISSOS ------------------- */
+        .commitments { padding: 80px 0; background-color: var(--cor-secundaria); }
+        .section-title { text-align: center; font-size: 2.2em; margin-bottom: 15px; }
+        .section-subtitle { text-align: center; color: var(--cor-texto-secundario); max-width: 600px; margin: 0 auto 50px auto; }
+        .commitments-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; }
+        .commitment-card { text-align: center; padding: 20px; }
+        .commitment-card .icon { font-size: 3em; color: var(--cor-primaria); margin-bottom: 15px; }
+        .commitment-card h3 { font-size: 1.3em; margin-bottom: 10px; }
+        .commitment-card p { font-size: 0.9em; color: var(--cor-texto-secundario); }
+        
+        /* ------------------- SEÇÃO PRODUTO EM DESTAQUE ------------------- */
+        .featured-product { padding: 80px 0; }
+        .featured-product .interface { display: flex; align-items: center; gap: 50px; flex-wrap: wrap; }
+        .featured-image { flex: 1; }
+        .featured-image img { width: 100%; border-radius: 12px; box-shadow: var(--sombra-suave); }
+        .featured-details { flex: 1; }
+        .featured-details h2 { text-align: left; font-size: 2.5em; }
+        .featured-details .subtitle { color: var(--cor-primaria); font-weight: 600; margin-bottom: 15px; }
+        .featured-details p { text-align: left; margin-bottom: 30px; }
+
+        /* ------------------- SEÇÃO PRODUTOS ------------------- */
+        .products { padding: 80px 0; background-color: var(--cor-secundaria); }
+        .product-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+        .product-item { background-color: white; border-radius: 12px; box-shadow: var(--sombra-suave); text-align: center; overflow: hidden; transition: all 0.3s ease; }
+        .product-item:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
+        .product-item img { width: 100%; height: 220px; object-fit: cover; }
+        .product-content { padding: 20px; }
+        .product-content h3 { font-size: 1.1em; margin-bottom: 10px; color: var(--cor-texto-principal); }
+        .product-content p { font-size: 1.1em; font-weight: 600; color: var(--cor-texto-principal); margin-bottom: 20px; }
+        .product-content button { background-color: var(--cor-primaria); color: white; border: none; padding: 12px 25px; border-radius: 25px; cursor: pointer; font-weight: 600; transition: background-color 0.3s; }
+        .product-content button:hover { background-color: var(--cor-primaria-hover); }
+
+        /* ------------------- SEÇÃO CTA (CALL TO ACTION) ------------------- */
+        .cta { padding: 80px 0; background-color: var(--cor-primaria); color: var(--cor-branco); text-align: center; }
+        .cta h2 { color: var(--cor-branco); }
+        .cta p { color: rgba(255, 255, 255, 0.9); margin-bottom: 30px; }
+        .btn-secondary { background-color: var(--cor-branco); color: var(--cor-primaria); text-decoration: none; padding: 15px 35px; border-radius: 30px; font-weight: 600; transition: all 0.3s ease; }
+        .btn-secondary:hover { background-color: var(--cor-secundaria); color: var(--cor-primaria); transform: translateY(-3px); }
+        
+        /* ------------------- RODAPÉ ------------------- */
+        .site-footer { background-color: #333; color: #ccc; padding: 40px 0; font-size: 0.9em; }
+        .footer-content { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 30px; margin-bottom: 30px; }
+        .footer-section { flex: 1; min-width: 250px; }
+        .footer-logo { max-width: 140px; margin-bottom: 15px; filter: grayscale(100%) brightness(200%); }
+        .footer-section h4 { color: #fff; margin-bottom: 15px; border-bottom: 1px solid #555; padding-bottom: 10px; }
+        .footer-section p { line-height: 1.6; color: #ccc; }
+        .footer-section ul { list-style: none; padding: 0; }
+        .footer-section ul li { margin-bottom: 10px; }
+        .footer-section ul li a { color: #ccc; text-decoration: none; transition: color 0.3s; }
+        .footer-section ul li a:hover { color: var(--cor-branco); }
+        .footer-section.social a { color: #ccc; margin-right: 15px; font-size: 1.5em; transition: color 0.3s ease; }
+        .footer-section.social a:hover { color: var(--cor-primaria); }
+        .footer-bottom { text-align: center; padding-top: 20px; border-top: 1px solid #555; color: #888; }
+        
+        /* ESTILO PARA O BOTÃO DE ADMIN - ADICIONADO */
+        .btn-admin {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 6px 12px;
+            font-size: 0.8em;
+            color: #ccc;
+            background-color: #555;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        .btn-admin:hover {
+            background-color: var(--cor-primaria);
+            color: var(--cor-branco);
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <div class="interface">
+            <div class="header-content">
+                <div class="logotipo">
+                    <a href="index.html"><img src="./imagem/logo2.png" alt="Logotipo eKoviva" /></a>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#products">Produtos</a></li>
+                        <li><a href="sobre.html" target="_blank">Sobre</a></li>
+                        <li id="auth-menu-container"></li>
+                    </ul>
+                </nav>
+                <div class="header-actions">
+                    <div class="header-cart">
+                        <a href="carrinho.html" aria-label="Ver carrinho de compras">
+                            <i class="bi bi-cart3"></i>
+                            <span id="cart-item-count" class="cart-badge" style="display: none;">0</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="interface">
+                <h1 data-aos="fade-up">Pequenas Escolhas, Grande Impacto.</h1>
+                <p data-aos="fade-up" data-aos-delay="200">Descubra produtos que cuidam de você e do planeta. Junte-se a nós na jornada por um futuro mais sustentável.</p>
+                <a href="#products" class="btn-primary" data-aos="fade-up" data-aos-delay="400">Ver Produtos</a>
+            </div>
+        </section>
+
+        <section class="commitments">
+            <div class="interface">
+                <h2 class="section-title">Nossos Compromissos</h2>
+                <p class="section-subtitle">O eKoviva é um projeto acadêmico guiado por princípios que unem tecnologia, educação e sustentabilidade.</p>
+                <div class="commitments-grid">
+                    <div class="commitment-card" data-aos="fade-up">
+                        <i class="bi bi-tree icon"></i>
+                        <h3>100% Sustentável</h3>
+                        <p>Selecionamos produtos de fontes responsáveis, com materiais reciclados ou biodegradáveis.</p>
+                    </div>
+                    <div class="commitment-card" data-aos="fade-up" data-aos-delay="200">
+                        <i class="bi bi-people icon"></i>
+                        <h3>Apoio Local</h3>
+                        <p>Valorizamos e apoiamos pequenos produtores e artesãos que compartilham da nossa visão.</p>
+                    </div>
+                    <div class="commitment-card" data-aos="fade-up" data-aos-delay="400">
+                        <i class="bi bi-lightbulb icon"></i>
+                        <h3>Propósito Educacional</h3>
+                        <p>Aplicamos nosso conhecimento de ADS para criar uma plataforma que inspira a mudança.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="featured-product">
+            <div class="interface">
+                <div class="featured-image" data-aos="fade-right">
+                    <img src="./imagem/sacola.png" alt="Sacola Reutilizável de Algodão">
+                </div>
+                <div class="featured-details" data-aos="fade-left">
+                    <p class="subtitle">DESTAQUE DO MÊS</p>
+                    <h2>Sacola Reutilizável de Algodão Orgânico</h2>
+                    <p>Diga adeus ao plástico com estilo. Nossa sacola de algodão não é apenas prática e resistente, mas também um símbolo do seu compromisso com um consumo mais consciente. Perfeita para o dia a dia.</p>
+                    <a href="#products" class="btn-primary">Ver Mais Detalhes</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="products" class="products">
+            <div class="interface">
+                <h2 class="section-title">Nossa Seleção Sustentável</h2>
+                <p class="section-subtitle">Produtos pensados para facilitar sua rotina e diminuir sua pegada ecológica.</p>
+                <div class="product-list">
+                    <div class="product-item" data-aos="fade-up">
+                        <img src="./imagem/garrafa.jpg" alt="Garrafa Sustentável" />
+                        <div class="product-content">
+                            <h3>Garrafa de Água Reutilizável</h3>
+                            <p>R$ 45,00</p>
+                            <button onclick="addToCart(this, 'Garrafa de Água Reutilizável', 45.00)">Adicionar ao Carrinho</button>
+                        </div>
+                    </div>
+                    <div class="product-item" data-aos="fade-up">
+                        <img src="./imagem/Escova.png" alt="Escova de Dente Ecológica" />
+                        <div class="product-content">
+                            <h3>Escova de Dente de Bambu</h3>
+                            <p>R$ 15,00</p>
+                            <button onclick="addToCart(this, 'Escova de Dente de Bambu', 15.00)">Adicionar ao Carrinho</button>
+                        </div>
+                    </div>
+                    <div class="product-item" data-aos="fade-up">
+                        <img src="./imagem/Kit de Talheres de Bambu.jpg" alt="Talheres de Bambu">
+                        <div class="product-content">
+                            <h3>Kit de Talheres de Bambu</h3>
+                            <p>R$ 25,00</p>
+                            <button onclick="addToCart(this, 'Kit de Talheres de Bambu', 25.00)">Adicionar ao Carrinho</button>
+                        </div>
+                    </div>
+                     <div class="product-item" data-aos="fade-up">
+                        <img src="./imagem/Sabonete Natural Artesanal.png" alt="Sabonete Natural">
+                        <div class="product-content">
+                            <h3>Sabonete Natural Artesanal</h3>
+                            <p>R$ 12,00</p>
+                            <button onclick="addToCart(this, 'Sabonete Natural Artesanal', 12.00)">Adicionar ao Carrinho</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="cta">
+            <div class="interface">
+                <h2 data-aos="fade-up">Faça Parte da Mudança</h2>
+                <p data-aos="fade-up" data-aos-delay="200">Crie sua conta para acompanhar seus pedidos e fazer parte de uma comunidade que se importa.</p>
+                <a href="cadastro.html" class="btn-secondary" data-aos="fade-up" data-aos-delay="400">Cadastre-se Agora</a>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+        <div class="interface">
+            <div class="footer-content">
+                <div class="footer-section about">
+                    <a href="index.html"><img src="./imagem/logo2.png" alt="Logotipo eKoviva" class="footer-logo"></a>
+                    <p>Um projeto de estudantes de ADS para um mundo mais sustentável.</p>
+                </div>
+                <div class="footer-section links">
+                    <h4>Navegação</h4>
+                    <ul>
+                        <li><a href="sobre.html">Sobre o Projeto</a></li>
+                        <li><a href="#products">Produtos</a></li>
+                        <li><a href="cadastro.html">Cadastro</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section social">
+                    <h4>Siga-nos</h4>
+                    <a href="#" target="_blank" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+                    <a href="#" target="_blank" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+                    <a href="#" target="_blank" aria-label="GitHub"><i class="bi bi-github"></i></a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 eKoviva - Projeto Integrador Acadêmico. Todos os direitos reservados.</p>
+                
+                <a href="bancodedados.html" class="btn-admin" target="_blank">Gerenciar Dados</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Inicializa a biblioteca de animações
+            AOS.init({ duration: 800, once: true, offset: 50 });
+
+            const clienteLogado = JSON.parse(localStorage.getItem("clienteLogado"));
+            
+            function updateCartIconCount() {
+                const cart = JSON.parse(localStorage.getItem("cart")) || [];
+                let itemCount = 0;
+                if (clienteLogado && clienteLogado.email) {
+                    const userCartItems = cart.filter(item => item.cliente === clienteLogado.email);
+                    itemCount = userCartItems.reduce((sum, item) => sum + item.quantity, 0);
+                }
+                const cartBadge = document.getElementById("cart-item-count");
+                if (cartBadge) {
+                    cartBadge.textContent = itemCount;
+                    cartBadge.style.display = itemCount > 0 ? 'inline-block' : 'none';
+                }
+            }
+
+            function renderAuthMenu() {
+                const authMenuContainer = document.getElementById("auth-menu-container");
+                if (!authMenuContainer) return;
+                if (clienteLogado) {
+                    authMenuContainer.classList.add("droop-hover");
+                    authMenuContainer.innerHTML = `
+                        <a href="#">Olá, ${clienteLogado.nome.split(' ')[0]} <i class="bi bi-chevron-down"></i></a>
+                        <div class="drop">
+                            <a href="perfil.html" target="_blank">Meu Perfil</a>
+                            <a href="#" id="logout-link">Sair</a>
+                        </div>
+                    `;
+                    document.getElementById('logout-link').addEventListener('click', logout);
+                } else {
+                    authMenuContainer.classList.remove("droop-hover");
+                    authMenuContainer.innerHTML = `<a href="entrar.html" class="btn-login">Login / Cadastrar</a>`;
+                }
+            }
+
+            function logout(event) {
+                if(event) event.preventDefault();
+                if (confirm("Tem certeza que deseja sair?")) {
+                    localStorage.removeItem("clienteLogado");
+                    window.location.href = "index.html";
+                }
+            }
+
+            window.addToCart = function(buttonElement, productName, price) {
+                if (!clienteLogado) {
+                    alert("Por favor, faça login para adicionar itens ao carrinho!");
+                    window.location.href = "entrar.html";
+                    return;
+                }
+                const productItemElement = buttonElement.closest('.product-item');
+                const imageUrl = productItemElement.querySelector('img').src;
+                let cart = JSON.parse(localStorage.getItem("cart")) || [];
+                let productIndex = cart.findIndex(item => item.name === productName && item.cliente === clienteLogado.email);
+                if (productIndex !== -1) {
+                    cart[productIndex].quantity++;
+                } else {
+                    cart.push({ name: productName, price: parseFloat(price), quantity: 1, image: imageUrl, cliente: clienteLogado.email });
+                }
+                localStorage.setItem("cart", JSON.stringify(cart));
+                buttonElement.innerText = 'Adicionado!';
+                buttonElement.style.backgroundColor = '#1a7d3c';
+                setTimeout(() => {
+                    buttonElement.innerText = 'Adicionar ao Carrinho';
+                    buttonElement.style.backgroundColor = 'var(--cor-primaria)';
+                }, 1500);
+                updateCartIconCount();
+            }
+
+            renderAuthMenu();
+            updateCartIconCount();
+        });
+    </script>
+</body>
+</html>

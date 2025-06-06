@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acompanhamento de Frete - Ekoviva</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        :root {
+            --cor-primaria: #2E7D32;
+            --cor-primaria-hover: #1B5E20;
+            --cor-cinza: #ccc;
+            --cor-texto: #333;
+            --cor-fundo: #f4f7f6;
+            --cor-branco: #ffffff;
+            --sombra-card: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Poppins', Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: var(--cor-fundo);
+            color: var(--cor-texto);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 600px;
+            width: 100%;
+            background: var(--cor-branco);
+            padding: 40px;
+            box-shadow: var(--sombra-card);
+            border-radius: 12px;
+        }
+
+        h1 {
+            color: var(--cor-primaria);
+            text-align: center;
+            margin-top: 0;
+            margin-bottom: 30px;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 15px;
+            padding-left: 45px; /* Espaço para o ícone */
+            border: 1px solid var(--cor-cinza);
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease;
+        }
+        input[type="text"]:focus {
+            outline: none;
+            border-color: var(--cor-primaria);
+        }
+        
+        .input-group .icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--cor-cinza);
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            background-color: var(--cor-primaria);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: var(--cor-primaria-hover);
+        }
+
+        #result, #error-message {
+            margin-top: 30px;
+            padding: 20px;
+            border-radius: 8px;
+            display: none; /* Inicia escondido */
+        }
+        
+        #error-message {
+            background: #ffebee;
+            border-left: 5px solid #c62828;
+            color: #c62828;
+        }
+
+        /* --- Timeline de Rastreamento --- */
+        .timeline {
+            list-style-type: none;
+            padding: 0;
+            margin-top: 20px;
+        }
+        .timeline li {
+            position: relative;
+            padding: 10px 0 30px 40px;
+            border-left: 2px solid var(--cor-cinza);
+        }
+        .timeline li:last-child {
+            border-left: 2px solid transparent;
+        }
+        .timeline li::before {
+            content: '';
+            position: absolute;
+            left: -11px; /* (20px / 2) - 2px */
+            top: 10px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: var(--cor-branco);
+            border: 3px solid var(--cor-cinza);
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+        .timeline li.completed::before {
+            background-color: var(--cor-primaria);
+            border-color: var(--cor-primaria);
+        }
+        .timeline li.completed {
+             border-left-color: var(--cor-primaria);
+        }
+        .timeline li span {
+            font-weight: 600;
+        }
+        .timeline li p {
+            margin: 5px 0 0;
+            color: #666;
+            font-size: 14px;
+        }
+        
+        /* --- Spinner --- */
+        .spinner {
+            margin: 20px auto 0;
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(0,0,0,0.1);
+            border-left-color: var(--cor-primaria);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            display: none;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        #btn-confirmar-entrega {
+            background-color: #ff9800;
+            margin-top: 20px;
+        }
+        #btn-confirmar-entrega:hover {
+             background-color: #f57c00;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><i class="bi bi-truck"></i> Rastreamento de Frete</h1>
+        
+        <div class="input-group">
+            <i class="bi bi-qr-code-scan icon"></i>
+            <input type="text" id="trackingCode" placeholder="Digite seu código de rastreio">
+        </div>
+        
+        <button onclick="trackShipment()">Rastrear Pedido</button>
+        
+        <div class="spinner" id="loading-spinner"></div>
+        <div id="error-message"></div>
+        <div id="result">
+            <h3 id="result-title">Status do Pedido</h3>
+            <ul class="timeline" id="tracking-timeline">
+                </ul>
+            <button id="btn-confirmar-entrega" style="display: none;">Confirmar Recebimento</button>
+        </div>
+    </div>
+
+    <script>
+        // Etapas do processo de entrega
+        const statusSteps = [
+            { status: "Pedido Realizado", description: "Seu pedido foi recebido e está aguardando aprovação." },
+            { status: "Pagamento Aprovado", description: "O pagamento foi confirmado. Estamos preparando seu pedido." },
+            { status: "Em Separação", description: "Seus produtos estão sendo separados em nosso estoque." },
+            { status: "Enviado", description: "Seu pedido foi enviado para a transportadora." },
+            { status: "Entregue", description: "Seu pedido foi entregue com sucesso!" }
+        ];
+
+        // Elementos do DOM
+        const trackingCodeInput = document.getElementById('trackingCode');
+        const resultDiv = document.getElementById('result');
+        const errorDiv = document.getElementById('error-message');
+        const spinner = document.getElementById('loading-spinner');
+        const timelineUl = document.getElementById('tracking-timeline');
+        const confirmButton = document.getElementById('btn-confirmar-entrega');
+
+        function displayMessage(element, message) {
+            element.textContent = message;
+            element.style.display = 'block';
+        }
+
+        function updateTimeline(currentStatus) {
+            timelineUl.innerHTML = ""; // Limpa a timeline anterior
+            const currentStatusIndex = statusSteps.findIndex(step => step.status === currentStatus);
+
+            statusSteps.forEach((step, index) => {
+                const li = document.createElement('li');
+                if (index <= currentStatusIndex) {
+                    li.classList.add('completed');
+                }
+                li.innerHTML = `<span>${step.status}</span><p>${step.description}</p>`;
+                timelineUl.appendChild(li);
+            });
+        }
+        
+        function trackShipment() {
+            const trackingCode = trackingCodeInput.value.trim().toUpperCase();
+            
+            // Reseta a UI
+            resultDiv.style.display = 'none';
+            errorDiv.style.display = 'none';
+            confirmButton.style.display = 'none';
+            
+            if (!trackingCode) {
+                displayMessage(errorDiv, 'Por favor, insira um código de rastreamento válido.');
+                return;
+            }
+
+            spinner.style.display = 'block';
+
+            // Simula uma chamada de API (busca no localStorage)
+            setTimeout(() => {
+                spinner.style.display = 'none';
+                const historicoCompras = JSON.parse(localStorage.getItem("historicoCompras")) || [];
+                const pedido = historicoCompras.find(p => p.codigoRastreio && p.codigoRastreio.toUpperCase() === trackingCode);
+
+                if (pedido) {
+                    resultDiv.style.display = 'block';
+                    document.getElementById('result-title').textContent = `Status do Pedido: ${pedido.name}`;
+                    updateTimeline(pedido.status);
+
+                    // Se o pedido ainda não foi entregue, mostra o botão para confirmar
+                    if (pedido.status !== "Entregue") {
+                        confirmButton.style.display = 'block';
+                        // Remove listener antigo para evitar múltiplos cliques
+                        const newConfirmButton = confirmButton.cloneNode(true);
+                        confirmButton.parentNode.replaceChild(newConfirmButton, confirmButton);
+                        
+                        newConfirmButton.addEventListener('click', () => {
+                            finalizarEntrega(trackingCode);
+                        });
+                    }
+
+                } else {
+                    displayMessage(errorDiv, `Código de rastreamento (${trackingCode}) não encontrado.`);
+                }
+            }, 1500); // Delay de 1.5 segundos para simular a busca
+        }
+
+        function finalizarEntrega(trackingCode) {
+            let historicoCompras = JSON.parse(localStorage.getItem("historicoCompras")) || [];
+            const pedidoIndex = historicoCompras.findIndex(p => p.codigoRastreio && p.codigoRastreio.toUpperCase() === trackingCode);
+
+            if (pedidoIndex !== -1) {
+                // ATUALIZA O "BANCO DE DADOS" (localStorage)
+                historicoCompras[pedidoIndex].status = "Entregue";
+                localStorage.setItem("historicoCompras", JSON.stringify(historicoCompras));
+
+                // Atualiza a UI para refletir a entrega e redireciona
+                updateTimeline("Entregue");
+                document.getElementById('btn-confirmar-entrega').style.display = 'none';
+                alert("Entrega confirmada com sucesso! Você será redirecionado para seu perfil.");
+                
+                setTimeout(() => {
+                    window.location.href = "perfil.html";
+                }, 2000); // Redireciona após 2 segundos
+            }
+        }
+
+    </script>
+</body>
+</html>

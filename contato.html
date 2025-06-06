@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contato - Ekoviva</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 15px 0;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        section#contato {
+            max-width: 900px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        section#contato h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        .contato-info p {
+            font-size: 16px;
+            color: #333;
+            text-align: center;
+        }
+
+        .contato-info p a {
+            color: #2e8b7f;
+            text-decoration: none;
+        }
+
+        .form-contato {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 30px;
+        }
+
+        .form-contato input,
+        .form-contato textarea {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: 100%;
+        }
+
+        .form-contato button {
+            background-color: #2e8b7f;
+            color: white;
+            padding: 12px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .form-contato button:hover {
+            background-color: #235f53;
+        }
+
+        #mensagem-sucesso {
+            display: none;
+            margin-top: 20px;
+            text-align: center;
+            color: #2e8b7f;
+            font-size: 18px;
+            background: #e6fffa;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Contato Ekoviva</h1>
+    </header>
+
+    <section id="contato">
+        <h2>Entre em Contato Conosco</h2>
+
+        <div class="contato-info">
+            <p>Email: <a href="mailto:ekoviva.meiombiente@gmail.com">ekoviva.meiombiente@gmail.com</a></p>
+            <p>Telefone: <a href="tel:+5561992960470">(61) 99296-0470</a></p>
+        </div>
+
+        <form class="form-contato" action="your-server-endpoint" method="POST" onsubmit="exibirMensagemSucesso(event)">
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome" required placeholder="Digite seu nome">
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required placeholder="Digite seu e-mail">
+
+            <label for="mensagem">Mensagem:</label>
+            <textarea id="mensagem" name="mensagem" required placeholder="Escreva sua mensagem" rows="6"></textarea>
+
+            <button type="submit">Enviar Mensagem</button>
+        </form>
+
+        <div id="mensagem-sucesso">Mensagem enviada com sucesso! Entraremos em contato o mais rápido possível.</div>
+    </section>
+
+    <script>
+        function exibirMensagemSucesso(event) {
+            event.preventDefault();
+            document.querySelector('.form-contato').reset();
+            document.getElementById('mensagem-sucesso').style.display = 'block';
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 5000);
+        }
+    </script>
+</body>
+</html>

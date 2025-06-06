@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sobre o Projeto eKoviva</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --cor-primaria: #28a745;
+            --cor-primaria-hover: #218838;
+            --cor-texto-principal: #333;
+            --cor-texto-secundario: #555;
+            --cor-fundo: #f4f7f6;
+            --cor-branco: #ffffff;
+            --sombra-card: 0 4px 15px rgba(0, 0, 0, 0.08);
+        }
+        body { font-family: 'Poppins', Arial, sans-serif; line-height: 1.7; margin: 0; padding: 0; background-color: var(--cor-fundo); color: var(--cor-texto-principal); }
+        .container { width: 90%; max-width: 1100px; margin: 0 auto; padding: 20px; }
+        header { background-color: var(--cor-primaria); color: var(--cor-branco); padding: 15px 0; text-align: center; }
+        header h1 { margin: 0; font-size: 2.5em; font-weight: 700; }
+        .hero-section { background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1532601224476-15c79f2f7a51?q=80&w=2070&auto=format&fit=crop'); background-size: cover; background-position: center; color: var(--cor-branco); text-align: center; padding: 100px 20px; }
+        .hero-section h2 { font-size: 3em; margin-bottom: 10px; font-weight: 700; }
+        .hero-section p { font-size: 1.2em; max-width: 700px; margin: 0 auto; font-weight: 300; }
+        .content-section { padding: 80px 0; }
+        .bg-white { background-color: var(--cor-branco); }
+        .content-section h3 { text-align: center; font-size: 2.2em; color: var(--cor-primaria); margin-bottom: 50px; }
+        .mission-text { max-width: 800px; margin: 0 auto; text-align: center; font-size: 1.1em; color: var(--cor-texto-secundario); }
+
+        /* Estilos para novas seções */
+        .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 40px; align-items: center; }
+        .info-card { text-align: center; }
+        .info-card .icon { font-size: 3.5em; color: var(--cor-primaria); margin-bottom: 15px; }
+        .info-card h4 { font-size: 1.4em; margin-bottom: 10px; }
+        .info-card p { font-size: 1em; color: var(--cor-texto-secundario); }
+        .text-content p { margin-bottom: 1em; }
+
+        .comparison-card {
+            display: flex; gap: 20px; background: var(--cor-branco); padding: 30px; border-radius: 12px; box-shadow: var(--sombra-card);
+        }
+        .comparison-item { flex: 1; text-align: center; padding: 20px; border: 1px solid #eee; border-radius: 8px; }
+        .comparison-item h4 { color: var(--cor-primaria); }
+        .comparison-item .time { font-size: 2.5em; font-weight: 700; margin: 10px 0; }
+        .comparison-item.plastic .time { color: var(--cor-erro); }
+
+        .steps-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; }
+        .step-card { background: var(--cor-branco); padding: 30px; border-radius: 8px; box-shadow: var(--sombra-card); }
+        .step-card .icon { font-size: 2.5em; color: var(--cor-primaria); margin-bottom: 15px; }
+        .step-card h4 { margin-bottom: 10px; }
+        
+        /* Depoimentos, Equipe, Tecnologias (estilos existentes) */
+        .testimonials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .testimonial-card { background-color: var(--cor-branco); padding: 30px; border-radius: 8px; border-left: 5px solid var(--cor-primaria); box-shadow: var(--sombra-card); }
+        .testimonial-card .stars { color: #f39c12; margin-bottom: 15px; }
+        .testimonial-card blockquote { font-style: italic; color: var(--cor-texto-secundario); border: none; padding: 0; margin: 0 0 15px 0; }
+        .testimonial-card footer { font-weight: 600; }
+        .team-container { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; }
+        .team-member { text-align: center; flex-basis: 220px; }
+        .team-member img { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 4px solid var(--cor-primaria); margin-bottom: 15px; box-shadow: var(--sombra-card); }
+        .team-member h4 { font-size: 1.4em; margin: 10px 0 5px; }
+        .team-member p { color: var(--cor-primaria); font-weight: 600; }
+        .tech-container { text-align: center; max-width: 800px; margin: 0 auto; }
+        .tech-badge { display: inline-block; background-color: var(--cor-primaria-hover); color: var(--cor-branco); padding: 8px 15px; margin: 5px; border-radius: 20px; font-weight: 600; }
+        
+        /* Rodapé */
+        .site-footer { background-color: #333; color: #ccc; padding: 40px 0; font-size: 14px; }
+        /* (Restante do CSS do footer omitido para brevidade, mas está no código final) */
+    </style>
+</head>
+<body>
+
+    <header><h1>Sobre Nós e Nossa Missão</h1></header>
+    
+    <main>
+        <section class="hero-section">
+            <h2>Um Movimento por um Futuro Sustentável</h2>
+            <p>Descubra o poder dos produtos ecológicos e como suas escolhas diárias podem transformar o mundo.</p>
+        </section>
+
+        <section class="content-section bg-white">
+            <div class="container">
+                <h3>O Que São Produtos Ecológicos?</h3>
+                <div class="info-grid">
+                    <div class="text-content" data-aos="fade-right">
+                        <p>Produtos ecológicos são soluções pensadas para **reduzir o impacto ambiental** e promover o bem-estar das comunidades. Feitos com materiais biodegradáveis, recicláveis ou renováveis, eles ajudam a preservar o planeta ao diminuir resíduos, conservar recursos naturais e reduzir emissões de poluentes.</p>
+                    </div>
+                    <div class="info-card" data-aos="fade-left">
+                        <i class="bi bi-box-seam icon"></i>
+                        <h4>Materiais do Bem</h4>
+                        <p>Bambu, algodão orgânico, papel semente, vidro reciclado e outros materiais que respeitam os ciclos da natureza.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="content-section">
+            <div class="container">
+                <h3>Benefícios para o Planeta e para Você</h3>
+                <div class="info-grid">
+                    <div class="info-card" data-aos="fade-right">
+                        <i class="bi bi-shield-check icon"></i>
+                        <h4>Saúde e Bem-Estar</h4>
+                        <p>Produtos de limpeza e cosméticos ecológicos são livres de químicos tóxicos, reduzindo riscos de alergias e doenças para sua família.</p>
+                    </div>
+                    <div class="info-card" data-aos="fade-left">
+                        <i class="bi bi-people-fill icon"></i>
+                        <h4>Fortalecimento Comunitário</h4>
+                        <p>A produção artesanal e local gera empregos, valoriza a cultura e fortalece os laços sociais em diversas comunidades.</p>
+                    </div>
+                </div>
+                <div class="comparison-card" style="margin-top: 40px;" data-aos="zoom-in">
+                    <div class="comparison-item">
+                        <i class="bi bi-hourglass-split icon"></i>
+                        <h4>Escova de Bambu</h4>
+                        <p class="time">~50 anos</p>
+                        <p>para se decompor</p>
+                    </div>
+                    <div class="comparison-item plastic">
+                        <i class="bi bi-trash icon"></i>
+                        <h4>Escova de Plástico</h4>
+                        <p class="time">+500 anos</p>
+                        <p>poluindo solos e oceanos</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section bg-white">
+            <div class="container">
+                <h3>Pequenas Mudanças, Grande Impacto: Como Começar?</h3>
+                <div class="steps-container">
+                    <div class="step-card" data-aos="fade-up">
+                        <i class="bi bi-bag-check icon"></i>
+                        <h4>Use Itens Reutilizáveis</h4>
+                        <p>Adote ecobags, garrafas de água, copos e canudos de metal ou vidro para reduzir drasticamente o lixo plástico diário.</p>
+                    </div>
+                    <div class="step-card" data-aos="fade-up" data-aos-delay="200">
+                        <i class="bi bi-patch-check-fill icon"></i>
+                        <h4>Procure por Selos</h4>
+                        <p>Escolha produtos com certificações e selos ecológicos confiáveis, que garantem a origem e o processo de produção sustentável.</p>
+                    </div>
+                    <div class="step-card" data-aos="fade-up" data-aos-delay="400">
+                        <i class="bi bi-shop icon"></i>
+                        <h4>Apoie Produtores Locais</h4>
+                        <p>Comprar de produtores da sua região diminui a pegada de carbono do transporte e incentiva a economia local.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <h3>Sobre o Projeto eKoviva: Da Sala de Aula para a Ação</h3>
+                <div class="mission-text">
+                    <p>Inspirados por esses benefícios, nosso grupo de estudantes de <strong>Análise e Desenvolvimento de Sistemas (ADS)</strong> decidiu criar o eKoviva. Este site é o resultado do nosso projeto integrador, onde aplicamos nosso conhecimento técnico para construir uma plataforma que não apenas vende produtos, mas também educa e engaja a sociedade na construção de um futuro mais sustentável.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section class="content-section bg-white">
+            <div class="container">
+                <h3>A Equipe por Trás do Código</h3>
+                <div class="team-container">
+                    <div class="team-member" data-aos="zoom-in"><img src="https://via.placeholder.com/150/28a745/FFFFFF?text=ADS" alt="Foto Aluno 1"><h4>Nome do Aluno(a)</h4><p>Desenvolvedor(a)</p></div>
+                    <div class="team-member" data-aos="zoom-in" data-aos-delay="100"><img src="https://via.placeholder.com/150/28a745/FFFFFF?text=ADS" alt="Foto Aluno 2"><h4>Nome do Aluno(a)</h4><p>Desenvolvedor(a)</p></div>
+                    <div class="team-member" data-aos="zoom-in" data-aos-delay="200"><img src="https://via.placeholder.com/150/28a745/FFFFFF?text=ADS" alt="Foto Aluno 3"><h4>Nome do Aluno(a)</h4><p>Desenvolvedor(a)</p></div>
+                    <div class="team-member" data-aos="zoom-in" data-aos-delay="300"><img src="https://via.placeholder.com/150/28a745/FFFFFF?text=ADS" alt="Foto Aluno 4"><h4>Nome do Aluno(a)</h4><p>Desenvolvedor(a)</p></div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    
+    <footer class="site-footer" style="padding:40px 0;background-color:#333;color:#ccc;font-size:14px;">
+        <div class="interface" style="max-width:1100px;margin:auto;padding:0 20px;">
+            <div class="footer-content" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:20px;">
+                <div class="footer-section about" style="flex:1;min-width:250px;">
+                    <a href="index.html"><img src="./imagem/logo2.png" alt="Logotipo eKoviva" class="footer-logo" style="max-width:150px;margin-bottom:15px;filter:grayscale(100%) brightness(200%);"></a>
+                    <p>Um projeto de estudantes de ADS para um mundo mais sustentável.</p>
+                </div>
+                <div class="footer-section links" style="flex:1;min-width:250px;">
+                    <h4 style="color:white;margin-bottom:15px;">Links Úteis</h4>
+                    <ul style="list-style:none;padding:0;">
+                        <li style="margin-bottom:10px;"><a href="sobre.html" style="color:#ccc;text-decoration:none;">Sobre Nós</a></li>
+                        <li style="margin-bottom:10px;"><a href="contato.html" style="color:#ccc;text-decoration:none;">Contato</a></li>
+                        <li style="margin-bottom:10px;"><a href="cadastro.html" style="color:#ccc;text-decoration:none;">Cadastre-se</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section social" style="flex:1;min-width:250px;">
+                    <h4 style="color:white;margin-bottom:15px;">Siga-nos</h4>
+                    <a href="#" target="_blank" aria-label="Instagram" style="font-size:24px;margin-right:15px;color:#ccc;"><i class="bi bi-instagram"></i></a>
+                    <a href="#" target="_blank" aria-label="Facebook" style="font-size:24px;margin-right:15px;color:#ccc;"><i class="bi bi-facebook"></i></a>
+                    <a href="#" target="_blank" aria-label="GitHub" style="font-size:24px;margin-right:15px;color:#ccc;"><i class="bi bi-github"></i></a>
+                </div>
+            </div>
+            <div class="footer-bottom" style="text-align:center;margin-top:30px;border-top:1px solid #444;padding-top:20px;">
+                <p>&copy; 2025 eKoviva - Projeto Integrador Acadêmico. Todos os direitos reservados.</p> 
+            </div>
+        </div>
+    </footer>
+    
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 50
+        });
+    </script>
+</body>
+</html>
